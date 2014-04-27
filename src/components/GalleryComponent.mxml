@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="660"
+		 xmlns:parsley="http://www.spicefactory.org/parsley"
+		 creationComplete="group1_creationCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import model.WallDataIPad;
+			
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			import views.WallFinal;
+			import views.WallView;
+			
+			protected function imageBtn_clickHandler(event:MouseEvent):void
+			{
+				raiseReplyButtons.play();
+				GuideBtnSequenceReply.play();
+				
+			}
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// GuideBtnSequencePic.play();
+			}
+			
+			[Inject]
+			[Bindable]
+			public var wallData:WallDataIPad;
+			
+			protected function replyBtn_clickHandler(event:MouseEvent):void
+			{
+				lowerReplyButtons.play();
+				raiseOptionButtons.play();
+				GuideBtnSequenceLoveHrg.play();
+				wallData.wallComponentState = "two";
+				
+			}
+			
+			protected function loveHrgBtn_clickHandler(event:MouseEvent):void
+			{
+				loveHrgBtn.visible = false;
+				replaceUneededButtons.play();
+				GuideBtnSequenceSend.play();
+			}
+			
+			protected function confirm_clickHandler(event:MouseEvent):void
+			{
+				// WallView.topItemComp_1.currentState = 'withComment';
+				// FlexGlobals.topLevelApplication.navigator.popToFirstView();
+				fadeRemainingButtons.play();
+				// iPadPrototype.lowerNavComponent_1.includeInLayout = true;
+				// iPadPrototype.lowerNavComponent_1.visible = true;
+				// iPadPrototype.lowerNavComponent_1.alpha = 1;
+
+				FlexGlobals.topLevelApplication.navigator.popToFirstView();
+
+			}
+			
+			protected function cancelsBtn_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		
+		<parsley:Configure/>
+		
+		<s:Parallel id="fadeRemainingButtons">
+			<s:Parallel duration="250" target="{confirmGroup}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Parallel duration="250" target="{choicesGroup}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="raiseReplyButtons">
+			<s:Parallel duration="500" target="{replyBtnGroup}">
+				<s:Fade alphaFrom="0" alphaTo="1"/>
+			</s:Parallel>
+				<s:Animate duration="500" target="{replyBtnGroup}">
+					<s:SimpleMotionPath property="verticalCenter" valueFrom="400" valueTo="240"/>
+				</s:Animate>
+		</s:Parallel>
+		
+		<s:Parallel id="lowerReplyButtons">
+			<s:Parallel duration="500" target="{replyBtnGroup}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Animate duration="500" target="{replyBtnGroup}">
+				<s:SimpleMotionPath property="verticalCenter" valueFrom="240" valueTo="400"/>
+			</s:Animate>
+		</s:Parallel>
+		
+		<s:Parallel id="raiseOptionButtons">
+			<s:Parallel duration="500" target="{choicesGroup}">
+				<s:Fade alphaFrom="0" alphaTo="1"/>
+			</s:Parallel>
+			<s:Animate duration="500" target="{choicesGroup}">
+				<s:SimpleMotionPath property="bottom" valueFrom="-800" valueTo="66"/>
+			</s:Animate>
+		</s:Parallel>
+		
+		<s:Parallel id="replaceUneededButtons">
+			<s:Parallel duration="200" target="{thanksBtnGroup}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Parallel duration="50" target="{loveHrgBtn}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Parallel duration="200" target="{hopeBtn}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Parallel duration="200" target="{thanksThinkBtn}">
+				<s:Fade alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+			<s:Parallel target="{confirmGroup}">
+				<s:Fade startDelay="250" duration="200" alphaFrom="0" alphaTo="1"/>
+				<s:Animate startDelay="1000" duration="250">
+					<s:SimpleMotionPath property="verticalCenter" valueFrom="-203" valueTo="0"/>
+				</s:Animate>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequencePic">
+			<s:Parallel target="{imageBtn}" repeatCount="3" startDelay="2800">
+				<s:Fade alphaFrom="1" alphaTo="0.7" duration="600"/>
+				<s:Fade alphaFrom="0.7" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequenceReply">
+			<s:Parallel target="{replyBtn}" repeatCount="3" startDelay="1000">
+				<s:Fade alphaFrom="1" alphaTo="0.7" duration="600"/>
+				<s:Fade alphaFrom="0.7" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequenceLoveHrg">
+			<s:Parallel target="{loveHrgBtn}" repeatCount="3" startDelay="1000">
+				<s:Fade alphaFrom="1" alphaTo="0.7" duration="600"/>
+				<s:Fade alphaFrom="0.7" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequenceSend">
+			<s:Parallel target="{confirmBtn}" repeatCount="3" startDelay="2500">
+				<s:Fade alphaFrom="1" alphaTo="0.7" duration="600"/>
+				<s:Fade alphaFrom="0.7" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		
+	</fx:Declarations>
+	
+<!--	<s:BitmapImage source="@Embed('assets/gallery/galleryBackNew.png')" horizontalCenter="0" verticalCenter="0"/>
+-->	
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		
+<!--		<s:Button id="imageBtn" verticalCenter="0" horizontalCenter="0"
+				  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/guitarKids.png"/>  CHANGING THIS INTO AN IMAGE FIXED SCROLLING ISSUE? ?? -->
+		
+		<s:BitmapImage id="imageBtn" verticalCenter="0" horizontalCenter="0" source="@Embed('assets/gallery/guitarKids.png')"/>
+		
+		<s:HGroup id="replyBtnGroup" verticalCenter="400" horizontalCenter="0" gap="2" visible="false">		
+			<s:Group>
+				<s:BitmapImage source="assets/gallery/backingRect.png"/>
+				<s:Button id="shareBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/shareButton_icon.png"/>
+			</s:Group>
+			<s:Group>
+				<s:BitmapImage source="assets/gallery/backingRect.png"/>
+				<s:Button id="replyBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/replyButton_icon.png"
+						  click="replyBtn_clickHandler(event)"/>
+			</s:Group>
+			<s:Group>
+				<s:BitmapImage source="assets/gallery/backingRect.png"/>
+				<s:Button id="deleteBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/deleteButton_icon.png"/>
+			</s:Group>
+		</s:HGroup>
+		
+		<s:Button width="300" height="70" click="imageBtn_clickHandler(event)" y="750" horizontalCenter="0" alpha="0"/>
+
+		
+		<s:VGroup id="choicesGroup" bottom="-800" horizontalCenter="0" horizontalAlign="center" gap="10" visible="false">
+			<s:HGroup id="thanksBtnGroup" gap="3">
+				<s:BitmapImage source="@Embed('assets/gallery/enterYourText.png')"/>
+				<s:Button skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/greenSendButton.png"/>
+			</s:HGroup>
+
+			<s:Group>
+				<s:Button id="loveHrgBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/loveHearingReply.png"
+						  click="loveHrgBtn_clickHandler(event)"/>
+			</s:Group>
+			<s:Group>
+				<s:Button id="hopeBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/hopeWellReply.png"/>
+			</s:Group>
+			<s:Group>
+				<s:Button id="thanksThinkBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/pleaseCallReply.png"/>
+			</s:Group>
+			<s:HGroup width="100%" horizontalAlign="center" paddingTop="20">
+				<s:Button id="cancelsBtn"
+						  skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/cancelOrangeBtn.png"
+						  click="cancelsBtn_clickHandler(event)"/>
+			</s:HGroup>
+		</s:VGroup>
+		
+		<s:VGroup id="confirmGroup" verticalCenter="-203" horizontalCenter="0" visible="false">
+			<s:VGroup gap="10" horizontalAlign="center">
+				<s:HGroup gap="3">
+					<s:BitmapImage source="@Embed('assets/gallery/loveHearingYourTextF.png')"/>
+					<s:Button id="confirmBtn" skinClass="skins.galleryImageButtonSkin" icon="assets/gallery/greenSendButton.png"
+							  click="confirm_clickHandler(event)"/>
+				</s:HGroup>
+			</s:VGroup>
+		</s:VGroup>
+
+	</s:Group>
+	
+
+	
+</s:Group>

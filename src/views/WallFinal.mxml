@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:c="components.*"
+		xmlns:parsley="http://www.spicefactory.org/parsley"
+		title="Wall"
+		viewActivate="view1_viewActivateHandler(event)">
+	
+	<fx:Declarations>
+	
+		<parsley:Configure/>
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.WallDataIPad;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			[Inject]
+			[Bindable]
+			public var wallData:WallDataIPad;
+			
+			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+ 				if (wallData.wallComponentState == "two")
+				{
+					topItemComp.currentState = 'withComment';
+					trace ("data from GalleryComponent's confirm button injected successfully");
+				} 
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:BitmapImage width="100%" source="@Embed('assets/generations.png')"/>
+	
+	<s:Scroller width="100%" height="100%" horizontalScrollPolicy="off" top="6"
+				scrollSnappingMode="leadingEdge" cacheAsBitmap="true">
+		<s:VGroup gap="20" horizontalAlign="center">
+			<s:VGroup>
+				<c:topWallItemComponentPad id="topItemComp"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_02.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_03.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_04.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_05.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_06.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_06.png')" visible="false"/>
+			</s:VGroup>
+		</s:VGroup>
+	</s:Scroller>
+	
+</s:View>

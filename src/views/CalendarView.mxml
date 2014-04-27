@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Calendar">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			
+			import uk.co.betadesigns.extension.nativealert.NativeAlert;
+			import uk.co.betadesigns.extension.nativealert.NativeAlertEvent;
+			
+			private var nativeAlert : NativeAlert = new NativeAlert();
+					
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				nativeAlert.showAlertWithTitleAndMessage("New Image from Danny!","You just received an image from Danny. Tap the View button to go to the Wall.","View","Dismiss");
+				nativeAlert.addEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, nativeAlert_closeEventHandler);
+			}
+			
+			protected function nativeAlert_closeEventHandler(event:NativeAlertEvent):void
+			{
+				nativeAlert.removeEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, nativeAlert_closeEventHandler);
+				FlexGlobals.topLevelApplication.tabbedNavigator.selectedIndex=0;
+			}
+			
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				FlexGlobals.topLevelApplication.tabbedNavigator.selectedIndex=0;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Button label="Alert Trigger" verticalCenter="0" horizontalCenter="0"
+			  click="button1_clickHandler(event)"/>
+	
+	<s:Button label="Go Home" verticalCenter="150" horizontalCenter="0"
+			  click="button2_clickHandler(event)"/>
+	
+	
+</s:View>

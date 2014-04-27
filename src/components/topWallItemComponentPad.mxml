@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:states>
+		<s:State name="initial"/>
+		<s:State name="withComment"/>
+	</s:states>
+	
+	<s:Group width="100%" horizontalCenter="0" verticalCenter="0">
+		<s:BitmapImage source="@Embed('assets/entry3_655_01.png')"/>
+		<s:BitmapImage source="@Embed('assets/loisReplied.png')"
+					   id="replyThread"
+					   visible.initial="false"
+					   visible.withComment="true" x="41"
+					   verticalCenter="204"/>
+	</s:Group>
+	
+	<s:transitions>
+		<s:Transition fromState="initial" toState="withComment">
+			<s:Parallel target="{replyThread}">
+				<s:Fade duration="250" alphaFrom="0" alphaTo="1"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+</s:Group>

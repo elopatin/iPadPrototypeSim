@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:c="components.*"
+			   xmlns:parsley="http://www.spicefactory.org/parsley"
+			   splashScreenImage="Splash"
+			   applicationDPI="160"
+			   creationComplete="application1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.WallDataIPad;
+			
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			[Inject]
+			[Bindable]
+			public var wallData:WallDataIPad;
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// this.navigator.stage.setAspectRatio(StageAspectRatio.LANDSCAPE);
+				// this.navigator.stage.autoOrients = false;
+				// this.stage.setAspectRatio(StageAspectRatio.LANDSCAPE);
+				// this.stage.autoOrients = false;
+				
+				// set initial data string
+				// wallData.wallComponentState = "one";
+				trace ("wall component state variable set to 'one'");
+			}
+			
+			static public function get testOverlay1_1():MedicationReminderOverlay
+			{
+				return FlexGlobals.topLevelApplication.testOverlay1;
+			}
+			
+/* 			static public function get lowerNavComponent_1():lowerNavComponent
+			{
+				return FlexGlobals.topLevelApplication.lowerNavComponent;
+			} */
+			
+/* 			protected function secondaryNav_clickHandler(event:MouseEvent):void
+			{
+				LowerNavFadeIn.play();
+				lowerNavComponent_1.includeInLayout = true;
+				navigator.popToFirstView();
+			} */
+				
+/*  			protected function lowerNavComponent_clickHandler(event:MouseEvent):void
+			{
+				if (lowerNavGroup.bottom == 0)
+				{
+					lowerNavAnimationDown.play();
+				}
+				if (lowerNavGroup.bottom == -125)
+				{
+					lowerNavAnimationUp.play();
+				}
+
+			}  */
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+		<parsley:ContextBuilder config="Config"/>
+		<parsley:Configure/>
+
+<!--		<s:Parallel id="lowerNavAnimationUp">
+			<s:Animate target="{lowerNavGroup}">
+				<s:SimpleMotionPath property="bottom" valueFrom="-125" valueTo="0"/>
+			</s:Animate>
+			<s:Rotate target="{arrow}" autoCenterTransform="true"
+					  angleFrom="0" angleTo="180"/>
+		</s:Parallel>
+		
+		<s:Parallel id="lowerNavAnimationDown">
+			<s:Animate target="{lowerNavGroup}">
+				<s:SimpleMotionPath property="bottom" valueFrom="0" valueTo="-125"/>
+			</s:Animate>
+			<s:Rotate target="{arrow}" autoCenterTransform="true"
+					  angleFrom="180" angleTo="0"/>
+		</s:Parallel>-->
+		
+<!--		<s:Parallel id="LowerNavFadeIn">
+			<s:Parallel target="{lowerNavComponent}">
+				<s:Fade duration="250" alphaFrom="0" alphaTo="1"/>
+			</s:Parallel>
+		</s:Parallel>-->
+	
+	</fx:Declarations>
+	
+	<c:CustomViewNavigator id="navigator" firstView="views.WallView" width="100%" height="100%"/>
+	
+	<c:MedicationReminderOverlay id="testOverlay1" verticalCenter="0" horizontalCenter="0" visible="false"/>
+	
+<!--	<s:Group id="secondaryNav" width="100%" top="0" click="secondaryNav_clickHandler(event)" visible="false">
+		<s:BitmapImage source="@Embed('assets/secondaryNavBlankTablet.png')"/>
+	</s:Group>-->
+	
+<!--	<c:lowerNavComponent id="lowerNavComponent" width="100%" bottom="0" visible="false"/>	
+-->
+	
+</s:Application>

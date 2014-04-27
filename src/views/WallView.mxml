@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Wall"
+		xmlns:c="components.*"
+		xmlns:parsley="http://www.spicefactory.org/parsley"
+		destructionPolicy="never"
+		tabBarVisible="false"
+		actionBarVisible="false"
+		creationComplete="view1_creationCompleteHandler(event)"
+		viewActivate="view1_viewActivateHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.utils.Timer;
+			
+			import model.WallDataIPad;
+			
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			[Inject]
+			[Bindable]
+			public var wallData:WallDataIPad;
+
+			static public function get topItemComp_1():topWallItemComponentPad
+			{
+				return WallView.topItemComp_1;
+			}
+			
+			static public function get lowerNavComponent_1():lowerNavComponent
+			{
+			return FlexGlobals.topLevelApplication.lowerNavComponent;
+			}
+			
+			private var initialAlertTimer : Timer = new Timer(2000, 1);
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				initialAlertTimer.addEventListener(TimerEvent.TIMER, handleInsertTimer);
+				initialAlertTimer.start();
+			}
+						
+			protected function handleInsertTimer(event:TimerEvent):void
+			{
+				openFauxSMS.play();
+				initialAlertTimer.stop();
+			}
+			
+			
+			protected function fauxSMS_clickHandler(event:MouseEvent):void
+			{
+				closeFauxSMS.play();
+				DkImageFade.play();
+				GuideBtnSequence.play();
+				wallData.wallComponentState = 'one' ;
+			}
+			
+			protected function OvrOn_clickHandler(event:MouseEvent):void
+			{
+				GalleryOpen.play();
+				// OvrOn.visible = false;
+				// OvrOff.visible = true;
+			}
+			
+			protected function OvrOff_clickHandler(event:MouseEvent):void
+			{
+				GalleryClose.play();
+				GalleryOverlay.visible = false;
+				// OvrOff.visible = false;
+				// OvrOn.visible = true;
+			}
+			
+/* 			protected function AddItem_clickHandler(event:MouseEvent):void
+			{
+				TopItemInsert.play();
+				TopItem.includeInLayout = true;
+			} */
+			
+			protected function topItemComp_clickHandler(event:MouseEvent):void
+			{
+				// LowerNavFadeOut.play();
+				// iPadPrototype.lowerNavComponent_1.visible = false;
+				// iPadPrototype.lowerNavComponent_1.includeInLayout = false;
+				navigator.pushView(PhotoGalleryView);
+			}
+			
+			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				if (wallData.wallComponentState == "two")
+				{
+					topItemComp.currentState = 'withComment';
+					trace ("data from GalleryComponent's confirm button injected successfully into original Wall view on viewActivate.");
+				}
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				topItemComp.currentState = 'initial';
+				wallData.wallComponentState = 'one' ;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<parsley:Configure/>
+		
+		<s:Parallel id="openOverlay">
+			<s:Parallel target="{iPadPrototype.testOverlay1_1}">
+				<s:Fade alphaFrom="0" alphaTo="1" duration="200"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="openFauxSMS">
+			<s:Parallel target="{fauxSMS}" startDelay="500">
+				<s:Fade alphaFrom="0" alphaTo="1" duration="400"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="closeFauxSMS" target="{fauxSMS}">
+			<s:Parallel>
+				<s:Fade alphaFrom="1" alphaTo="0" duration="250"/>
+			</s:Parallel>
+			<s:Animate startDelay="800">
+				<s:SimpleMotionPath property="verticalCenter" valueFrom="0" valueTo="1000"/>
+			</s:Animate>
+		</s:Parallel>
+		
+		<s:Parallel id="DkImageFade">
+			<s:Parallel target="{DkImage}" startDelay="500">
+				<s:Fade duration="500" alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GalleryOpen">
+			<s:Parallel target="{GalleryOverlay}"> 
+				<s:Fade duration="500" alphaFrom="0" alphaTo="1"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GalleryClose">
+			<s:Parallel target="{GalleryOverlay}">
+				<s:Fade duration="500" alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequence">
+			<s:Parallel target="{topItemComp}" repeatCount="3" startDelay="2000">
+				<s:Fade alphaFrom="1" alphaTo="0.6" duration="600"/>
+				<s:Fade alphaFrom="0.6" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+	</fx:Declarations>
+	
+	<s:BitmapImage width="100%" source="@Embed('assets/generations.png')"/>
+	
+	<s:Scroller width="100%" height="100%" horizontalScrollPolicy="off" top="20"
+				scrollSnappingMode="leadingEdge" cacheAsBitmap="true">
+		<s:VGroup gap="20" horizontalAlign="center">
+			<s:VGroup>
+				<c:topWallItemComponentPad id="topItemComp"
+										click="topItemComp_clickHandler(event)"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_02.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_03.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_04.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_05.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_06.png')"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:BitmapImage source="@Embed('assets/entry3_655_05.png')" visible="false"/>
+			</s:VGroup>
+		</s:VGroup>
+	</s:Scroller>
+	
+	<s:Group id="GalleryOverlay" width="100%" height="100%" verticalCenter="0" visible="false">
+		<s:BitmapImage source="@Embed('assets/overlay.png')" verticalCenter="0" horizontalCenter="0"/>
+		<!-- GalleryGroup removed, because it's creationComplete event kicks off the timer to show a med alert in the Gallery. -->
+		<!-- <c:GalleryGroup top="120" verticalCenter="0" horizontalCenter="0"/> -->
+	</s:Group>
+	
+<!--	<s:Button label="Visibility" id="AddItem" verticalCenter="120" right="20"
+			  click="AddItem_clickHandler(event)"
+			  visible="false"/>
+	
+	<s:Button label="Toggle Nav" verticalCenter="170" right="20" 
+			  click="button2_clickHandler(event)"
+			  visible="false"/>
+	
+	<s:Button label="Overlay On" id="OvrOn" verticalCenter="270" right="20"
+			  click="OvrOn_clickHandler(event)"
+			  visible="false"/>
+	
+	<s:Button label="Overlay Off" id="OvrOff" verticalCenter="320" right="20"
+			  click="OvrOff_clickHandler(event)"
+			  visible="false"/>-->
+	
+<!--	<s:Group width="100%" bottom="0">
+		<s:BitmapImage width="100%" source="@Embed('assets/tabPlainShort.png')"/>
+		<s:Button horizontalCenter="0" icon="assets/arrowShort.png" skinClass="skins.menuBarButtonSkin"
+				  click="button2_clickHandler(event)"/>
+	</s:Group>-->
+	
+	<c:lowerNavComponent id="lowerNavComponent" width="100%" bottom="0"/>	
+	
+	<s:Button bottom="12" left="19" click="button1_clickHandler(event)" skinClass="skins.menuBarButtonSkin" 
+			  icon="assets/homeNew_icon.png"/>
+	
+	<s:BitmapImage id="DkImage" width="100%" height="100%" source="@Embed('assets/DesktopiPadCrop.png')"/>
+	
+	<s:Button id="fauxSMS" verticalCenter="0" horizontalCenter="0" skinClass="skins.PlainNoAlphaButtonSkin" 
+			  icon="assets/fauxPopUpButton.png" alpha="0"
+			  click="fauxSMS_clickHandler(event)"/>
+
+	
+</s:View>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="PhotoComment" 
+		xmlns:components="components.*"
+		viewActivate="view1_viewActivateHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.events.ViewNavigatorEvent;
+			
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+			protected function previewBtn_clickHandler(event:MouseEvent):void
+			{
+				// overlayGrp.visible = true;
+				activateOverlay.play();
+			}
+			
+			protected function sendBtn_clickHandler(event:MouseEvent):void
+			{
+				deactivateOverlay.play();
+				overlayGrp.visible = false;
+				navigator.popToFirstView();
+				// need better way of managing the effect of setting visible to false; disregards fade transition.
+			}
+			
+			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void
+			{
+				GuideBtnSequence.play();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		
+		<s:Parallel id="activateOverlay">
+			<s:Parallel target="{overlayGrp}">
+				<s:Fade duration="1000" alphaFrom="0" alphaTo="1.0"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="deactivateOverlay">
+			<s:Parallel target="{overlayGrp}">
+				<s:Fade duration="750" alphaFrom="1" alphaTo="0"/>
+			</s:Parallel>
+		</s:Parallel>
+		
+		<s:Parallel id="GuideBtnSequence">
+			<s:Parallel target="{previewBtn}" repeatCount="3" startDelay="2000">
+				<s:Fade alphaFrom="1" alphaTo="0.2" duration="600"/>
+				<s:Fade alphaFrom="0.2" alphaTo="1" duration="600" startDelay="600"/>
+			</s:Parallel>
+		</s:Parallel>
+
+	
+	</fx:Declarations>
+	
+	<s:navigationContent>
+		<s:Button label="Back" click="button1_clickHandler(event)"/>
+	</s:navigationContent>
+
+	<s:BitmapImage width="100%" top="0" source="@Embed('assets/commentSelectionTop2.png')">
+		<s:filters>
+			<s:DropShadowFilter alpha="0.5" distance="5" angle="90"/>
+		</s:filters>
+	</s:BitmapImage>
+	
+	<s:HGroup width="100%" horizontalAlign="center" gap="80" verticalCenter="190">
+		<s:Button label="Comment1"/>
+		<s:Button id="previewBtn" label="Preview" click="previewBtn_clickHandler(event)"/>
+		<s:Button label="Comment2"/>
+	</s:HGroup>
+	
+	<s:HGroup width="100%" horizontalAlign="center" gap="80" verticalCenter="250">
+		<s:Button label="Comment3"/>
+		<s:Button label="Comment4"/>
+	</s:HGroup>
+	
+	<s:Group horizontalCenter="0" verticalCenter="0" id="overlayGrp" visible="false">
+		<components:PhotoCommentOverlay horizontalCenter="0" verticalCenter="0"/>
+		<s:Button id="sendBtn" label="Send!" horizontalCenter="0" verticalCenter="243"
+				  click="sendBtn_clickHandler(event)"/>
+	</s:Group>
+	
+</s:View>
