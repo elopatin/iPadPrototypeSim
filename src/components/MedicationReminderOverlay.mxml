@@ -40,6 +40,9 @@
 		
 	</fx:Declarations>
 	
+<!--TODO: Replace alert overlay image!
+	-->
+
 	<s:Group horizontalCenter="0" verticalCenter="0">
 		<s:BitmapImage id="medRegOverlay" horizontalCenter="0" 
 				   source="@Embed('assets/medicationReminderOverlayiPad.png')"/>
