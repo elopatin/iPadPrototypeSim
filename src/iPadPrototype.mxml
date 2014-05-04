@@ -19,6 +19,7 @@
 			
 			protected function application1_creationCompleteHandler(event:FlexEvent):void
 			{
+				// Orientation controls:
 				// this.navigator.stage.setAspectRatio(StageAspectRatio.LANDSCAPE);
 				// this.navigator.stage.autoOrients = false;
 				// this.stage.setAspectRatio(StageAspectRatio.LANDSCAPE);

@@ -29,6 +29,7 @@
 			
 			protected function handleMedAlertTimer(event:TimerEvent):void
 			{
+				// NativeAlert: Used for triggering iOS alert dialogs while running on device.
 				// nativeMedAlert.showAlertWithTitleAndMessage("Medication Reminder", "It's time for Lois to take the morning dose of Zocor.", "Ok", "Dismiss");
 				// nativeMedAlert.addEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, handleMedAlertEvent);
 				openOverlay.play();
