@@ -24,25 +24,13 @@
 				// GuideBtnSequence.play();
 				showOtherImages.play();
 			}
-			
-			// private var nativeMedAlert : NativeAlert = new NativeAlert();
-			
+						
 			protected function handleMedAlertTimer(event:TimerEvent):void
 			{
-				// NativeAlert: Used for triggering iOS alert dialogs while running on device.
-				// nativeMedAlert.showAlertWithTitleAndMessage("Medication Reminder", "It's time for Lois to take the morning dose of Zocor.", "Ok", "Dismiss");
-				// nativeMedAlert.addEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, handleMedAlertEvent);
 				openOverlay.play();
 				iPadPrototype.testOverlay1_1.visible = true;
 				medAlertTimer.reset();
 			}
-			
-/* 			protected function handleMedAlertEvent(event:MouseEvent):void
-			{
-				nativeMedAlert.removeEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, handleMedAlertEvent);
-				
-				trace ("med alert in gallery tapped");
-			} */
 			
 			protected function replyPicBtn_clickHandler(event:MouseEvent):void
 			{

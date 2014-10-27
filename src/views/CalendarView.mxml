@@ -6,11 +6,12 @@
 		<![CDATA[
 			import mx.core.FlexGlobals;
 			
-			import uk.co.betadesigns.extension.nativealert.NativeAlert;
-			import uk.co.betadesigns.extension.nativealert.NativeAlertEvent;
+			// import uk.co.betadesigns.extension.nativealert.NativeAlert;
+			// import uk.co.betadesigns.extension.nativealert.NativeAlertEvent;
 			
-			private var nativeAlert : NativeAlert = new NativeAlert();
-					
+			// private var nativeAlert : NativeAlert = new NativeAlert();
+
+			/*
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				nativeAlert.showAlertWithTitleAndMessage("New Image from Danny!","You just received an image from Danny. Tap the View button to go to the Wall.","View","Dismiss");
@@ -22,7 +23,7 @@
 				nativeAlert.removeEventListener(NativeAlertEvent.ALERT_CLOSE_EVENT, nativeAlert_closeEventHandler);
 				FlexGlobals.topLevelApplication.tabbedNavigator.selectedIndex=0;
 			}
-			
+			*/
 			protected function button2_clickHandler(event:MouseEvent):void
 			{
 				FlexGlobals.topLevelApplication.tabbedNavigator.selectedIndex=0;
